@@ -1,0 +1,67 @@
+\secnumbersection{DEFINICIÓN DEL PROBLEMA}
+
+\subsection{Contextualización}
+Los datos peronales siempre han sido almacenados por diferentes empresas o instituciones, en sus inicios estos estaban plasmados únicamente en papel, por lo cual protegerlos no era una tarea difícil y hacer cruces entre distintos conjuntos de datos era practicamente imposible, en cambio, cuando comienza la era de la información, estos datos empiezan a ser guardados en plataformas digitales, bases de datos, las cuales pueden ser replicadas y distribuidas con mayor facilidad.
+
+La sociedad en el último tiempo ha experimentado un crecimiento en cuanto a los datos generados por las personas, tanto en la cantidad como en la variedad de ellos, la gran mayoría de ellos con información personal que permiten identificar al individuo  \cite{dwork2011firm}. Con la aparición de grandes empresas como Facebook, YouTube, Google, Amazon, entre otras, la velocidad de crecimiento aumentó considerablemente, además la información que estas empresas poseen es considerada revelante para otras, dado que la pueden utilizar para generar promociones y recomendaciones personalizadas de acuerdo a los gustos de cada individuo \cite{wang2012differential}.
+
+Las personas entregan información a entidades confiando en que sus datos no van a ser compartidos, ni utilizados para perjudicarlos de alguna manera, pero las empresas que almacenan estos datos en ocasiones requieren divulgar infomación, por lo cual esto debe realizarse de tal manera que no genere daños a las individuos que proporcionaron estos datos, para esto deben comprometer mantener la confidencialidad de la persona \cite{dwork2011firm}. El conjunto de todos estos factores provoca que surga el problema de privacidad de datos, es decir, ¿Qué significa privacidad? y ¿Cómo lograrlo?.
+
+En un comienzo una de las formas en la que se entiendió privacidad, fue por control de información, ya sea restrigiendo el acceso a ella o el propósito que tiene el uso de esta. Otro enfoque que se ha
+dado es eliminar aquellos atributos que son explícitos identificadores, como rut, nombre, dirección o número de teléfono, asumiendo que esto entregaría datos anónimos, pero esto no es sufuciente para garantizar la privacidad de los datos y evitar que otras empresas puedan, a través de un cruce de información, obtener mayor conocimiento del individuo, pero el problema persiste incluso si hay encriptación de datos y se controla el acceso a ellos \cite{dwork2011firm}.
+
+Algunas de las propuestas iniciales que surgieron para resolver el problema de privacidad fueron las siguientes \cite{dwork2011firm}:
+\begin{enumerate}
+  \item \textbf{Conjunto de consultas:} La solución es deshabilitar consultas que otorguen información relevante de un individuo, pero estas consultas se pueden realizar de manera indirecta ejecutando varias \textit{query} a la base de datos, que al juntar las respuestas que estas entregan se puede revelar infomación que no se quería divulgar, es decir, la respuesta es igual o similar a la que entregaría aquellas consultas que fueron desahabilitadas.
+  \item \textbf{Auditoría de consultas:} Consiste en evaluar cada \textit{query} realizada a la basa de datos y depediendo de la información que estas entreguen se determina si son respondidas o no. Este enfoque es complicado dado que no es computacionalmente factible realizar el monitoreo para evaluar cada consulta.
+  \item \textbf{Respuestas aleatorias:} Los datos son aleatorizados y las estadísticas son generadas a partir de las respuestas de los datos modificados. La privacidad en este método radica en la incertidumbre de las respuesta entregada, pero este enfoque se vuelve insostenible para datos complejos.
+  \item \textbf{Agregar ruido aleatorio en la respuesta:} Este método trae problemas dado que si se realiza repetidas veces la misma consulta esta pueden convergir a la respuesta correcta.
+\end{enumerate}
+
+Los métodos mencionados no prosperaron por las razones expuestas anteriormente, pero exiten otras soluciones al problema de privacidad, basadas en la premisa de que para mantener la confidencialidad de los datos no se debe revelar exactamente la misma información que está presente en los datos originales, por lo que se tienen que publicar los datos modificados. Estas técnicas son \textit{k-Anonymity}, \textit{$\ell$-Diversity} y \textit{Differential Privacy}, las cuales serán explicadas en profundidad en el capítulo siguiente.
+
+Las soluciones de \textit{k-Anonymity}, \textit{$\ell$-Diversity} y \textit{Differential Privacy}, han sido estudiados y probados en bases de datos relacionales, que son unas de las más utilizadas en la actualidad, pero con el avance de la tecnología, aparecieron las bases de datos NoSQL, como documentales, columnares, basada en grafos, entre otras.
+Las bases de datos basadas en grafos se han vuelto populares en los últimos años debido a que son ampliamente utilizadas en redes sociales, estos sistemas manejan gran cantidad de datos personales, por lo que resolver el problema de privacidad es fundamental para proteger a las personas que ponen a disposición su información personal, este es un problema complejo y el tipo de bases de datos le agrega una dificultad mayor.
+
+En la actualidad no hay muchos avances en el ámbito de privacidad en bases de datos de grafos, por lo tanto esta memoria busca ahondar en este tema, utilizando Privacidad Diferencial, y aplicando los algoritmos de dicho método verificar su funcionamiento en estas bases de datos.
+
+\subsection{Objetivos}
+\subsubsection{Objetivo General}
+Validar el funcionamiento de los algoritmos propuestos en Privacidad Diferencial en bases de datos de grafos.
+
+\subsubsection{Objetivos Específicos}
+\begin{itemize}
+  \item Investigar algoritmos que son aplicados en Privacidad Diferencial.
+  \item Aplicar algoritmos de Privacidad Diferencial en bases de datos de grafos.
+  \item Comparar el conjunto de datos generados por los algoritmos.
+  \item Hacer consultas al conjunto de datos para validar la privacidad de ellos.
+\end{itemize}
+
+% Se debe definir el problema, es importante no confundir definir el problema con describir la solución. Por ejemplo: ``diseñar una arquitectura e implementar una plataforma ...'' es una solución, no un problema.
+%
+% Algunos elementos que podrían ir en este capítulo son (no es necesario que vayan todos):
+% \begin{itemize}
+%     \item Breve descripción del contexto donde se realizará la memoria (organización, línea dentro de la Informática en la que se basa, etc.)
+%     \item ¿Qué y cómo se realiza actualmente la situación que mejorarás con tu memoria?
+%     \item ¿Qué actores o usuarios están involucrados?
+%     \item ¿Qué dificultades tienen esos actores actualmente? ¿cuántos son? (ideal si se pueden poner estadísticas para así saber si existe un mercado razonable para la solución que propondrás en tu memoria, en el fondo saber cuántas personas u organizaciones tienen el mismo problema que estás definiendo)
+%     \item ¿Qué podría pasar si en el corto o mediano plazo no se solucionan esas dificultades (¿es decir, si no se hiciera tu memoria, qué pasaría?; en el fondo justificar por qué conviene hacer tu memoria, ¿cuál es la motivación o interés de hacerla?).
+%     \item ¿Qué competencia existe actualmente? (a lo mejor ya existe una solución al problema, pero por qué no sirve, o por qué tu solución sería mejor, también se puede enfocar a si este problema existe en otras realidades y cómo ha sido solucionado allí).
+%     \item Precisar los objetivos y alcances de la memoria (o solución al problema).
+% \end{itemize}
+%
+% En este capítulo, de ser necesario puede usar referencias bibliográficas (velar porque sean recientes), una cita de ejemplo \cite{schwab2002cure} y otras más \cite{georget1994study,beaumont1990patient}.
+%
+% Recuerde poner notas al pie de página que sean explicativas \footnote{Este es un ejemplo de una nota al pie de página. Puede indicar alguna URL, definiciones, aclarar alguna información pertinente del texto, citar algunas referencias, etc..}.
+%
+% \subsection{SUBSECCIÓN DE PRUEBA}
+%
+% Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
+%
+% \subsubsection{SUBSUBSECCIÓN DE PRUEBA}
+%
+% Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet.
+%
+% \subsubsection{OTRA SUBSUBSECCIÓN DE PRUEBA}
+%
+% Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet.
